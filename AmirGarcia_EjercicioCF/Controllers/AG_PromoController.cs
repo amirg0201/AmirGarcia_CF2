@@ -10,22 +10,23 @@ using AmirGarcia_EjercicioCF.Models;
 
 namespace AmirGarcia_EjercicioCF.Controllers
 {
-    public class BurgersController : Controller
+    public class AG_PromoController : Controller
     {
         private readonly AmirGarcia_EjercicioCFContext _context;
 
-        public BurgersController(AmirGarcia_EjercicioCFContext context)
+        public AG_PromoController(AmirGarcia_EjercicioCFContext context)
         {
             _context = context;
         }
 
-        // GET: Burgers
+        // GET: AG_Promo
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Burger.ToListAsync());
+            var amirGarcia_EjercicioCFContext = _context.Promo.Include(a => a.Burger);
+            return View(await amirGarcia_EjercicioCFContext.ToListAsync());
         }
 
-        // GET: Burgers/Details/5
+        // GET: AG_Promo/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,42 @@ namespace AmirGarcia_EjercicioCF.Controllers
                 return NotFound();
             }
 
-            var burger = await _context.Burger
-                .FirstOrDefaultAsync(m => m.Burgerid == id);
-            if (burger == null)
+            var aG_Promo = await _context.Promo
+                .Include(a => a.Burger)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (aG_Promo == null)
             {
                 return NotFound();
             }
 
-            return View(burger);
+            return View(aG_Promo);
         }
 
-        // GET: Burgers/Create
+        // GET: AG_Promo/Create
         public IActionResult Create()
         {
+            ViewData["BurgerId"] = new SelectList(_context.Burger, "Burgerid", "Name");
             return View();
         }
 
-        // POST: Burgers/Create
+        // POST: AG_Promo/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Burgerid,Name,WithCheese,Precio")] Burger burger)
+        public async Task<IActionResult> Create([Bind("ID,descripcion,fechaProm,BurgerId")] AG_Promo aG_Promo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(burger);
+                _context.Add(aG_Promo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(burger);
+            ViewData["BurgerId"] = new SelectList(_context.Burger, "Burgerid", "Name", aG_Promo.BurgerId);
+            return View(aG_Promo);
         }
 
-        // GET: Burgers/Edit/5
+        // GET: AG_Promo/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +77,23 @@ namespace AmirGarcia_EjercicioCF.Controllers
                 return NotFound();
             }
 
-            var burger = await _context.Burger.FindAsync(id);
-            if (burger == null)
+            var aG_Promo = await _context.Promo.FindAsync(id);
+            if (aG_Promo == null)
             {
                 return NotFound();
             }
-            return View(burger);
+            ViewData["BurgerId"] = new SelectList(_context.Burger, "Burgerid", "Name", aG_Promo.BurgerId);
+            return View(aG_Promo);
         }
 
-        // POST: Burgers/Edit/5
+        // POST: AG_Promo/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Burgerid,Name,WithCheese,Precio")] Burger burger)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,descripcion,fechaProm,BurgerId")] AG_Promo aG_Promo)
         {
-            if (id != burger.Burgerid)
+            if (id != aG_Promo.ID)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace AmirGarcia_EjercicioCF.Controllers
             {
                 try
                 {
-                    _context.Update(burger);
+                    _context.Update(aG_Promo);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BurgerExists(burger.Burgerid))
+                    if (!AG_PromoExists(aG_Promo.ID))
                     {
                         return NotFound();
                     }
@@ -113,10 +118,11 @@ namespace AmirGarcia_EjercicioCF.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(burger);
+            ViewData["BurgerId"] = new SelectList(_context.Burger, "Burgerid", "Name", aG_Promo.BurgerId);
+            return View(aG_Promo);
         }
 
-        // GET: Burgers/Delete/5
+        // GET: AG_Promo/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +130,35 @@ namespace AmirGarcia_EjercicioCF.Controllers
                 return NotFound();
             }
 
-            var burger = await _context.Burger
-                .FirstOrDefaultAsync(m => m.Burgerid == id);
-            if (burger == null)
+            var aG_Promo = await _context.Promo
+                .Include(a => a.Burger)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (aG_Promo == null)
             {
                 return NotFound();
             }
 
-            return View(burger);
+            return View(aG_Promo);
         }
 
-        // POST: Burgers/Delete/5
+        // POST: AG_Promo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var burger = await _context.Burger.FindAsync(id);
-            if (burger != null)
+            var aG_Promo = await _context.Promo.FindAsync(id);
+            if (aG_Promo != null)
             {
-                _context.Burger.Remove(burger);
+                _context.Promo.Remove(aG_Promo);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BurgerExists(int id)
+        private bool AG_PromoExists(int id)
         {
-            return _context.Burger.Any(e => e.Burgerid == id);
+            return _context.Promo.Any(e => e.ID == id);
         }
     }
 }

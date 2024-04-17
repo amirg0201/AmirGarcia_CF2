@@ -15,5 +15,6 @@ namespace AmirGarcia_EjercicioCF.Data
         }
 
         public DbSet<AmirGarcia_EjercicioCF.Models.Burger> Burger { get; set; } = default!;
+        public DbSet<AmirGarcia_EjercicioCF.Models.AG_Promo> Promo { get; set; } = default!;
     }
 }

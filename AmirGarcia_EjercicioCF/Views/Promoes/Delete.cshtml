@@ -1,4 +1,4 @@
-﻿@model AmirGarcia_EjercicioCF.Models.AG_Promo
+﻿@model AmirGarcia_EjercicioCF.Models.Promo
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,20 +8,20 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>AG_Promo</h4>
+    <h4>Promo</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.descripcion)
+            @Html.DisplayNameFor(model => model.Descripcion)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.descripcion)
+            @Html.DisplayFor(model => model.Descripcion)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.fechaProm)
+            @Html.DisplayNameFor(model => model.fechaPromo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.fechaProm)
+            @Html.DisplayFor(model => model.fechaPromo)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Burger)
@@ -32,7 +32,7 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

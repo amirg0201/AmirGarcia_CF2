@@ -1,4 +1,4 @@
-﻿@model AmirGarcia_EjercicioCF.Models.AG_Promo
+﻿@model AmirGarcia_EjercicioCF.Models.Promo
 
 @{
     ViewData["Title"] = "Details";
@@ -7,20 +7,20 @@
 <h1>Details</h1>
 
 <div>
-    <h4>AG_Promo</h4>
+    <h4>Promo</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.descripcion)
+            @Html.DisplayNameFor(model => model.Descripcion)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.descripcion)
+            @Html.DisplayFor(model => model.Descripcion)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.fechaProm)
+            @Html.DisplayNameFor(model => model.fechaPromo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.fechaProm)
+            @Html.DisplayFor(model => model.fechaPromo)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Burger)
@@ -31,6 +31,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

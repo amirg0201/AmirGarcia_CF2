@@ -17,34 +17,10 @@ namespace AmirGarcia_EjercicioCF.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("AmirGarcia_EjercicioCF.Models.AG_Promo", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("BurgerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("descripcion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("fechaProm")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("BurgerId");
-
-                    b.ToTable("Promo");
-                });
 
             modelBuilder.Entity("AmirGarcia_EjercicioCF.Models.Burger", b =>
                 {
@@ -69,11 +45,35 @@ namespace AmirGarcia_EjercicioCF.Migrations
                     b.ToTable("Burger");
                 });
 
-            modelBuilder.Entity("AmirGarcia_EjercicioCF.Models.AG_Promo", b =>
+            modelBuilder.Entity("AmirGarcia_EjercicioCF.Models.Promo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Burgerid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("fechaPromo")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Burgerid");
+
+                    b.ToTable("Promo");
+                });
+
+            modelBuilder.Entity("AmirGarcia_EjercicioCF.Models.Promo", b =>
                 {
                     b.HasOne("AmirGarcia_EjercicioCF.Models.Burger", "Burger")
                         .WithMany("Promo")
-                        .HasForeignKey("BurgerId")
+                        .HasForeignKey("Burgerid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -10,23 +10,23 @@ using AmirGarcia_EjercicioCF.Models;
 
 namespace AmirGarcia_EjercicioCF.Controllers
 {
-    public class AG_PromoController : Controller
+    public class PromoesController : Controller
     {
         private readonly AmirGarcia_EjercicioCFContext _context;
 
-        public AG_PromoController(AmirGarcia_EjercicioCFContext context)
+        public PromoesController(AmirGarcia_EjercicioCFContext context)
         {
             _context = context;
         }
 
-        // GET: AG_Promo
+        // GET: Promoes
         public async Task<IActionResult> Index()
         {
-            var amirGarcia_EjercicioCFContext = _context.Promo.Include(a => a.Burger);
+            var amirGarcia_EjercicioCFContext = _context.Promo.Include(p => p.Burger);
             return View(await amirGarcia_EjercicioCFContext.ToListAsync());
         }
 
-        // GET: AG_Promo/Details/5
+        // GET: Promoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +34,42 @@ namespace AmirGarcia_EjercicioCF.Controllers
                 return NotFound();
             }
 
-            var aG_Promo = await _context.Promo
-                .Include(a => a.Burger)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (aG_Promo == null)
+            var promo = await _context.Promo
+                .Include(p => p.Burger)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (promo == null)
             {
                 return NotFound();
             }
 
-            return View(aG_Promo);
+            return View(promo);
         }
 
-        // GET: AG_Promo/Create
+        // GET: Promoes/Create
         public IActionResult Create()
         {
-            ViewData["BurgerId"] = new SelectList(_context.Burger, "Burgerid", "Name");
+            ViewData["Burgerid"] = new SelectList(_context.Burger, "Burgerid", "Name");
             return View();
         }
 
-        // POST: AG_Promo/Create
+        // POST: Promoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,descripcion,fechaProm,BurgerId")] AG_Promo aG_Promo)
+        public async Task<IActionResult> Create([Bind("Id,Descripcion,fechaPromo,Burgerid")] Promo promo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(aG_Promo);
+                _context.Add(promo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BurgerId"] = new SelectList(_context.Burger, "Burgerid", "Name", aG_Promo.BurgerId);
-            return View(aG_Promo);
+            ViewData["Burgerid"] = new SelectList(_context.Burger, "Burgerid", "Name", promo.Burgerid);
+            return View(promo);
         }
 
-        // GET: AG_Promo/Edit/5
+        // GET: Promoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +77,23 @@ namespace AmirGarcia_EjercicioCF.Controllers
                 return NotFound();
             }
 
-            var aG_Promo = await _context.Promo.FindAsync(id);
-            if (aG_Promo == null)
+            var promo = await _context.Promo.FindAsync(id);
+            if (promo == null)
             {
                 return NotFound();
             }
-            ViewData["BurgerId"] = new SelectList(_context.Burger, "Burgerid", "Name", aG_Promo.BurgerId);
-            return View(aG_Promo);
+            ViewData["Burgerid"] = new SelectList(_context.Burger, "Burgerid", "Name", promo.Burgerid);
+            return View(promo);
         }
 
-        // POST: AG_Promo/Edit/5
+        // POST: Promoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,descripcion,fechaProm,BurgerId")] AG_Promo aG_Promo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,fechaPromo,Burgerid")] Promo promo)
         {
-            if (id != aG_Promo.ID)
+            if (id != promo.Id)
             {
                 return NotFound();
             }
@@ -102,12 +102,12 @@ namespace AmirGarcia_EjercicioCF.Controllers
             {
                 try
                 {
-                    _context.Update(aG_Promo);
+                    _context.Update(promo);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AG_PromoExists(aG_Promo.ID))
+                    if (!PromoExists(promo.Id))
                     {
                         return NotFound();
                     }
@@ -118,11 +118,11 @@ namespace AmirGarcia_EjercicioCF.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BurgerId"] = new SelectList(_context.Burger, "Burgerid", "Name", aG_Promo.BurgerId);
-            return View(aG_Promo);
+            ViewData["Burgerid"] = new SelectList(_context.Burger, "Burgerid", "Name", promo.Burgerid);
+            return View(promo);
         }
 
-        // GET: AG_Promo/Delete/5
+        // GET: Promoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,35 +130,35 @@ namespace AmirGarcia_EjercicioCF.Controllers
                 return NotFound();
             }
 
-            var aG_Promo = await _context.Promo
-                .Include(a => a.Burger)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (aG_Promo == null)
+            var promo = await _context.Promo
+                .Include(p => p.Burger)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (promo == null)
             {
                 return NotFound();
             }
 
-            return View(aG_Promo);
+            return View(promo);
         }
 
-        // POST: AG_Promo/Delete/5
+        // POST: Promoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var aG_Promo = await _context.Promo.FindAsync(id);
-            if (aG_Promo != null)
+            var promo = await _context.Promo.FindAsync(id);
+            if (promo != null)
             {
-                _context.Promo.Remove(aG_Promo);
+                _context.Promo.Remove(promo);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AG_PromoExists(int id)
+        private bool PromoExists(int id)
         {
-            return _context.Promo.Any(e => e.ID == id);
+            return _context.Promo.Any(e => e.Id == id);
         }
     }
 }

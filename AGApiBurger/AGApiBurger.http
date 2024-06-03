@@ -1,0 +1,6 @@
+@AGApiBurger_HostAddress = http://localhost:5167
+
+GET {{AGApiBurger_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
